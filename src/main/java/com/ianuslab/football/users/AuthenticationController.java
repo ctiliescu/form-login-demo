@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -34,7 +33,7 @@ public class AuthenticationController {
     @RequestMapping(value = "/api/v1/authentication/sign-in",
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    public ResponseEntity<Void> createUser(@ApiParam(value = "The create file request", required = true) @Valid @RequestBody CreateUserRequest body) {
+    public ResponseEntity<Void> createUser(@ApiParam(value = "The create file request", required = true) @RequestBody CreateUserRequest body) {
         Optional<UserDao> userOpt = userRepository.findByEmail(body.getEmail());
         if (userOpt.isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
